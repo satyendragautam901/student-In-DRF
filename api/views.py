@@ -54,3 +54,31 @@ def create_student(request):
             })
 
     
+@api_view(['PATCH'])  # PATCH = partial update
+def update_stu(request, pk):
+    try:
+        record = Student.objects.get(id=pk)
+
+    except Student.DoesNotExist: # doesn't exist work without model
+        return JsonResponse({
+            "status": False,
+            "message": f"Student with id {pk} not found."
+        }, status=404)
+    
+    serializer = StudentSerializer(record, data=request.data, partial=True) # partial = true must hai
+
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse({
+            "status": True,
+            "data": serializer.data,
+            "message": "Student record updated successfully"
+        })
+    
+    return JsonResponse({
+        "status": False,
+        "data": serializer.errors,
+        "message": "Error during updating student record"
+    }, status=400)
+
+
