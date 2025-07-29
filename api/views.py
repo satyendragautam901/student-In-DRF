@@ -82,3 +82,24 @@ def update_stu(request, pk):
     }, status=400)
 
 
+@api_view(['DELETE'])
+def delete_stu(request, pk):
+    try:
+        student = Student.objects.get(id=pk)
+
+        # Serialize the student *before* deleting
+        serializer = StudentSerializer(student)
+        student.delete()
+
+        return JsonResponse({
+            "status": True,
+            "message": f"Student with ID {pk} deleted successfully",
+            "deleted_data": serializer.data
+        })
+
+    except Student.DoesNotExist:
+        return JsonResponse({
+            "status": False,
+            "message": f"Student with ID {pk} not found"
+        }, status=404)
+

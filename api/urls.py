@@ -8,5 +8,6 @@ urlpatterns = [
     path('all-students-json/', get_student_json),
     path('create-student/', create_student),
     path('update-student/<int:pk>', update_stu),
+    path('delete-student/<int:pk>', delete_stu),
 
 ]
