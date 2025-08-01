@@ -34,7 +34,7 @@ def create_student(request):
     if(serializer.is_valid()):
         try:
             serializer.save()
-            return JsonResponse({
+            return Response({ # here Response is also send
                 "status":True,
                 "data":serializer.data,
                 "message":"student created successfully"
