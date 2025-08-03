@@ -67,7 +67,29 @@ class StudentData(APIView):
         return Response({
             "status": False,
             "message": "Error during updating student record",
-            "errors": serializer.errors  # changed key from `error` → `errors`
+            "errors": serializer.errors  
         }, status=status.HTTP_400_BAD_REQUEST)
         
 
+    def delete(self, request, pk, format = None):
+        # first find the record
+        try:
+            student = Student.objects.get(id = pk)
+        except Student.DoesNotExist:
+            return Response({
+                "status": False,
+                "message": f"Student with ID {pk} not found."
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+
+        # send the record to serializer for delete
+        serializer = StudentModelSerializer(student)
+        student.delete()
+
+        return Response({
+            "status":True,
+            "message":f"student record with this {pk} delete successfully",
+            "data":serializer.data
+        })
+
+        # print the deleted data
