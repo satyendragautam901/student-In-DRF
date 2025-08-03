@@ -37,4 +37,37 @@ class StudentData(APIView):
                 "status":False,
                 "message":"Error while creating data",
                 "data":serializer.errors
-                }, status=status.HTTP_400_BAD_REQUEST)
+                }, status=status.HTTP_400_BAD_REQUEST) # status code is helpful to understand exact issue
+    
+    # partial update record
+        
+    def patch(self, request, pk, format=None):
+        # 1. Try to find the student by ID
+        try:
+            stu = Student.objects.get(id=pk)
+        except Student.DoesNotExist:
+            return Response({
+                "status": False,
+                "message": f"Student with ID {pk} not found."
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        # 2. Pass existing object + request data to serializer
+        serializer = StudentModelSerializer(stu, data=request.data, partial=True) # if i remove partial = true from here it works well for update all fields
+
+        # 3. Validate and save if valid
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "status": True,
+                "message": "Student record updated successfully",
+                "data": serializer.data
+            }, status=status.HTTP_200_OK)
+        
+        # 4. If not valid, return validation error
+        return Response({
+            "status": False,
+            "message": "Error during updating student record",
+            "errors": serializer.errors  # changed key from `error` → `errors`
+        }, status=status.HTTP_400_BAD_REQUEST)
+        
+
