@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('class/api/', include('classbasedapi.urls')),
+    path('mixins/api/', include('mixins.urls')),
 ]
