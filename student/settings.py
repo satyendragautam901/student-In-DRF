@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'api',
     'classbasedapi',
     'concreateview',
+    'viewset',
 ]
 
 MIDDLEWARE = [
