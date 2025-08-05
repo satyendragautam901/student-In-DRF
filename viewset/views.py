@@ -9,6 +9,17 @@ from rest_framework import status
 # Create your views here.
 class StudentViewSet(viewsets.ViewSet):
     def list(self,request): # list all the record 
+
+        # this is attributes 
+        
+        print("**** List ****")
+        print("basename: ",self.basename )
+        print("action: ",self.action)
+        print("details: ",self.detail)
+        print("suffix: ",self.suffix)
+        print("name: ", self.name)
+        print("description: ", self.description)
+
         stu = Student.objects.all()
         serializer = StudentModelSerializer(stu, many = True)
         return Response({
