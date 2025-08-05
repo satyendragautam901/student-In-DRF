@@ -4,8 +4,8 @@ from .views import *
 
 urlpatterns = [
     path('all-students/', ListStudent.as_view()),
-    # path('get-student/<int:pk>', RetrieveStudentMixin.as_view()), # get single instance
-    # path('create-student/', CreateStudentMixin.as_view()), # create record 
+    path('get-student/<int:pk>', GetStudent.as_view()), # get single instance
+    path('create-student/', CreateStudent.as_view()), # create record 
     # path('update-student/<int:pk>', UpdateStudentMixin.as_view()), # partial update data
     # path('full-update-student/<int:pk>', FullUpdateStudent.as_view()), # full update data
     # path('delete-student/<int:pk>', DeleteStudentMixin.as_view()), # delete student
