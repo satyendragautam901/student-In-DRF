@@ -10,9 +10,10 @@ urlpatterns = [
     
     path('delete-student/<int:pk>', DeleteStudent.as_view()), # delete student
 
-    # # this url handles all the crud operation in single place
-    # path('students/', StudentCRUDView.as_view()),          # list & create
-    # path('students/<int:pk>/', StudentCRUDView.as_view()), # retrieve, update, delete
+    # this url will work for both list and create student
+    path('list-create-student/', ListandCreateStudent.as_view()),
+
+   
     
 
 ]
