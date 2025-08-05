@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView
+from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from .serializers import StudentModelSerializer
 from api.models import Student
 
@@ -13,5 +13,13 @@ class GetStudent(RetrieveAPIView):
     serializer_class = StudentModelSerializer
 
 class CreateStudent(CreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentModelSerializer
+
+class UpdateStudent(UpdateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentModelSerializer
+
+class DeleteStudent(DestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentModelSerializer
