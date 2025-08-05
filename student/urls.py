@@ -24,5 +24,6 @@ urlpatterns = [
     path('mixins/api/', include('mixins.urls')),
     path('concrete/api/', include('concreateview.urls')),
     path('viewset/api/', include('viewset.urls')),
+    path('modelviewset/api/', include('modelviewset.urls')),
 
 ]
